@@ -8,20 +8,15 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "Actor",
-"language": "GDScript",
-"path": "res://source/actors/scripts/Actor.gd"
-} ]
-_global_script_class_icons={
-"Actor": ""
-}
-
 [application]
 
-config/name="Platformer"
+config/name="SimplePlataformer"
 config/icon="res://icon.png"
+
+[display]
+
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [physics]
 
