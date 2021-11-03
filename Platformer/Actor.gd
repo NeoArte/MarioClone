@@ -4,8 +4,13 @@ class_name Actor
 
 const FLOOR_NORMAL: = Vector2.UP
 
-export var speed: = Vector2(400, 700)
-export var gravity: = 1000.0
+
+export var acceleration: = 400
+export var deacceleration: = 0.2
+
+export var max_spd: = Vector2(500, 1000)
+
+export var gravity: = 1000
 
 var _velocity: = Vector2.ZERO
 
