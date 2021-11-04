@@ -1,6 +1,5 @@
 extends Actor
 
-var motion: Vector2 = Vector2.ZERO
 export var max_jump_force = 700
 var jump_force = max_jump_force
 
