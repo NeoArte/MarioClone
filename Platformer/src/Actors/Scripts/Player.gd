@@ -1,7 +1,7 @@
 extends Actor
 
 var motion: Vector2 = Vector2.ZERO
-export var max_jump_force = 500
+export var max_jump_force = 700
 var jump_force = max_jump_force
 
 func _physics_process(delta: float) -> void:
@@ -41,10 +41,10 @@ func calculate_move_velocity(
 	if direction.x != 0 and velocity.x != 0:
 		var velocity_dir: = velocity.x/abs(velocity.x)
 		if direction.x + velocity_dir == 0:
-			velocity.x = lerp(velocity.x, 0, deacceleration) #The deacceleration is slower when changing directions.
+			velocity.x = lerp(velocity.x, 0, deacceleration*delta) #The deacceleration is slower when changing directions.
 	# Deacceleration when stoping
 	if direction.x == 0:
-		velocity.x = lerp(_velocity.x, 0, deacceleration/1.5)
+		velocity.x = lerp(_velocity.x, 0, (deacceleration*delta)/1.5)
 	# Accelerating
 	elif direction.x != 0:
 		velocity.x += direction.x * acceleration * delta

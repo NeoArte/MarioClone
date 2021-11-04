@@ -6,7 +6,7 @@ const FLOOR_NORMAL: = Vector2.UP
 
 
 export var acceleration: = 400
-export var deacceleration: = 0.2
+export var deacceleration: = 5
 
 export var max_spd: = Vector2(500, 1000)
 
