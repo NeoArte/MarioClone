@@ -1,9 +1,8 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://src/Actors/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://res/Sprites/Tilesets/w1tileset.png" type="Texture" id=2]
-[ext_resource path="res://src/Actors/Enemies/BaseEnemy/Enemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/Actors/Enemies/Mush/Mushy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Actors/Enemies/BaseBounceEnemy/BaseBounceEnemy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 80, 0, 80, 80, 0, 80 )
@@ -188,8 +187,5 @@ collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 262145, 0, 3, 262152, 0, 196611, 262154, 0, 196608, 262155, 0, 196609, 262156, 0, 196610, 327681, 0, 65539, 327684, 0, 196608, 327685, 0, 196609, 327686, 0, 196610, 393217, 0, 65539, 393228, 0, 3, 524287, 0, 0, 458752, 0, 1, 458753, 0, 196611, 458754, 0, 1, 458755, 0, 1, 458756, 0, 1, 458757, 0, 1, 458758, 0, 1, 458759, 0, 1, 458760, 0, 1, 458761, 0, 1, 458762, 0, 1, 458763, 0, 1, 458764, 0, 196611, 458765, 0, 2, 589823, 0, 65536, 524288, 0, 65537, 524289, 0, 65537, 524290, 0, 65537, 524291, 0, 65537, 524292, 0, 65537, 524293, 0, 65537, 524294, 0, 65537, 524295, 0, 65537, 524296, 0, 65537, 524297, 0, 65537, 524298, 0, 65537, 524299, 0, 65537, 524300, 0, 65537, 524301, 0, 65538, 655359, 0, 131072, 589824, 0, 131073, 589825, 0, 131073, 589826, 0, 131073, 589827, 0, 131073, 589828, 0, 131073, 589829, 0, 131073, 589830, 0, 131073, 589831, 0, 131073, 589832, 0, 131073, 589833, 0, 131073, 589834, 0, 131073, 589835, 0, 131073, 589836, 0, 131073, 589837, 0, 131074 )
 
-[node name="Mushy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 339, 265 )
-
-[node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 519, 271 )
+[node name="BounceEnemy" parent="." instance=ExtResource( 4 )]
+position = Vector2( 405, 154 )

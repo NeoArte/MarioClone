@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy_default.png-90366595bc1106ccf1674e20323063fb.stex"
+path="res://.import/bounce_enemy_default.png-0112ef582b17e595afb9f5320fcb76fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://res/Sprites/Enemies/enemy_default.png"
-dest_files=[ "res://.import/enemy_default.png-90366595bc1106ccf1674e20323063fb.stex" ]
+source_file="res://res/Sprites/Enemies/Base/bounce_enemy_default.png"
+dest_files=[ "res://.import/bounce_enemy_default.png-0112ef582b17e595afb9f5320fcb76fd.stex" ]
 
 [params]
 

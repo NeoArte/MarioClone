@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Actors/Enemies/BaseEnemy/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://res/Sprites/Enemies/Base/bounce_enemy_default.png" type="Texture" id=2]
+[ext_resource path="res://src/Actors/Enemies/BaseBounceEnemy/Scripts/BounceEnemy.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 35, 12 )
+
+[node name="BounceEnemy" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="Pivot" index="0"]
+texture = ExtResource( 2 )
+
+[node name="StompArea2D" type="Area2D" parent="." index="2"]
+position = Vector2( 0, -11 )
+monitorable = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea2D" index="0"]
+modulate = Color( 0.145098, 1, 0.0470588, 1 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="StompArea2D" to="." method="_on_StompArea2D_body_entered"]
