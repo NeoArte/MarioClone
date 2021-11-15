@@ -2,6 +2,13 @@ extends Actor
 
 export var max_jump_force = 700
 var jump_force = max_jump_force
+onready var stomp_detector: Area2D = $StompDetector
+
+func _on_EnemyDetector_area_entered(area: Area2D) -> void:
+	if stomp_detector.global_position.y > area.global_position.y:
+		return
+	_velocity = calculate_stomp_velocity(_velocity, -500.0)
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -10,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	_velocity = calculate_move_velocity(_velocity, direction, acceleration, deacceleration, is_jump_interrupted, delta)
 	var snap: Vector2 = Vector2.DOWN if direction.y == 0 else Vector2.ZERO
 	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
-	
+
 
 func get_direction() -> Vector2:
 	var x_dir = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -21,6 +28,7 @@ func get_direction() -> Vector2:
 	Input.is_action_just_pressed("jump") else 0.0
 	
 	return Vector2(x_dir, y_dir)
+
 
 func calculate_move_velocity(
 		linear_velocity: Vector2,
@@ -60,4 +68,12 @@ func calculate_move_velocity(
 		velocity.y = 0.0
 		jump_force = max_jump_force
 	return velocity
+
+
+func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) -> Vector2:
+	var stomp_vel: = -500
+	return Vector2(linear_velocity.x, stomp_vel)
+
+
+
 
