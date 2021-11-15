@@ -1,17 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://res/Sprites/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://src/Actors/Player/Scripts/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 30 )
+extents = Vector2( 16, 33 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 22, 2 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 17, 34 )
+
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 10
 script = ExtResource( 2 )
+stomp_impulse = 700.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -40 )
@@ -20,15 +24,28 @@ hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color( 0, 0.203922, 1, 1 )
-position = Vector2( 0, -30 )
+position = Vector2( 0, -33 )
 shape = SubResource( 1 )
 
 [node name="StompDetector" type="Area2D" parent="."]
+visible = false
 position = Vector2( 0, -2 )
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+visible = false
 modulate = Color( 0.243137, 1, 0, 1 )
 shape = SubResource( 2 )
 
+[node name="EnemyDetector" type="Area2D" parent="."]
+position = Vector2( 0, -34 )
+monitorable = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
+modulate = Color( 0, 0, 0, 1 )
+shape = SubResource( 3 )
+
 [connection signal="area_entered" from="StompDetector" to="." method="_on_EnemyDetector_area_entered"]
+[connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]

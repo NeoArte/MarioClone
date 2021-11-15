@@ -8,12 +8,10 @@
 extents = Vector2( 18, 28 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 19, 6 )
+extents = Vector2( 17, 6 )
 
 [node name="BounceEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-acceleration = 0
-max_spd = Vector2( 0, 1000 )
 
 [node name="Sprite" parent="Pivot" index="0"]
 texture = ExtResource( 2 )

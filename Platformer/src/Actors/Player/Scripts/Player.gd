@@ -2,16 +2,24 @@ extends Actor
 
 export var max_jump_force = 700
 var jump_force = max_jump_force
+
+export var stomp_impulse: float = 500
+
 onready var stomp_detector: Area2D = $StompDetector
 
 func _on_EnemyDetector_area_entered(area: Area2D) -> void:
 	if stomp_detector.global_position.y > area.global_position.y:
 		return
-	_velocity = calculate_stomp_velocity(_velocity, -500.0)
+	print("IMPULSE!")
+	_velocity = calculate_stomp_velocity(_velocity, stomp_impulse)
+
+
+func _on_EnemyDetector_body_entered(body: Node) -> void:
+	print("ENTROU")
+	die()
 
 
 func _physics_process(delta: float) -> void:
-	
 	var is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0
 	var direction = get_direction()
 	_velocity = calculate_move_velocity(_velocity, direction, acceleration, deacceleration, is_jump_interrupted, delta)
@@ -58,6 +66,7 @@ func calculate_move_velocity(
 		
 	# Y Movement		/\/\/\/\/\/\/\/\/\/\
 	
+	## TODO: Better jump (at the moment this code just doesnt make difference)
 	if direction.y != 0:
 		velocity.y += direction.y * jump_force
 		velocity.y = clamp(velocity.y, -max_spd.y, max_spd.y)
@@ -71,9 +80,14 @@ func calculate_move_velocity(
 
 
 func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) -> Vector2:
-	var stomp_vel: = -500
-	return Vector2(linear_velocity.x, stomp_vel)
+	var velocity = linear_velocity
+	var impulse = stomp_impulse
+	
+	# There is no deacelleration when bouncing so the velocity will start at max at 0 (more will be equal to 0)
+	if velocity.y > 0:
+		velocity.y = 0
 
-
-
-
+	velocity.y -= impulse #  and then be subtracted to add the jump impulse
+	velocity.y = clamp(velocity.y, -max_jump_force, max_jump_force)
+	
+	return velocity
