@@ -17,11 +17,11 @@ script = ExtResource( 3 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( 0, 12 )
+position = Vector2( 0, -28 )
 shape = SubResource( 1 )
 
 [node name="StompArea2D" type="Area2D" parent="." index="2"]
-position = Vector2( 0, -17 )
+position = Vector2( 0, -54 )
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea2D" index="0"]
