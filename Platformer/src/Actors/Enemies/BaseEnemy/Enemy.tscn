@@ -26,3 +26,5 @@ shape = SubResource( 1 )
 modulate = Color( 0, 0.992157, 0.0156863, 1 )
 position = Vector2( 4.76837e-07, -36.5 )
 scale = Vector2( 4, 3.65 )
+process_parent = true
+physics_process_parent = true
