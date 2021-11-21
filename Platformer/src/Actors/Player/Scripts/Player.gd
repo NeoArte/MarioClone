@@ -14,7 +14,7 @@ func _on_EnemyDetector_area_entered(area: Area2D) -> void:
 	_velocity = calculate_stomp_velocity(_velocity, stomp_impulse)
 
 
-func _on_EnemyDetector_body_entered(body: Node) -> void:
+func _on_EnemyDetector_body_entered(_body: Node) -> void:
 	print("ENTROU")
 	die()
 
@@ -79,9 +79,9 @@ func calculate_move_velocity(
 	return velocity
 
 
-func calculate_stomp_velocity(linear_velocity: Vector2, stomp_impulse: float) -> Vector2:
+func calculate_stomp_velocity(linear_velocity: Vector2, stomp_force: float) -> Vector2:
 	var velocity = linear_velocity
-	var impulse = stomp_impulse
+	var impulse = stomp_force
 	
 	# There is no deacelleration when bouncing so the velocity will start at max at 0 (more will be equal to 0)
 	if velocity.y > 0:

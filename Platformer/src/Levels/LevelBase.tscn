@@ -1,14 +1,73 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://res/Resources/Tilemap/world1.tres" type="TileSet" id=1]
-[ext_resource path="res://src/Actors/Enemies/BaseBounceEnemy/BaseBounceEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Actors/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Objects/Flagpole/Flagpole.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Levels/Scripts/LevelBase.gd" type="Script" id=5]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1.93187 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="LevelBase" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Flagpole" parent="." instance=ExtResource( 4 )]
+position = Vector2( 752, 360 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 116, 240 )
+position = Vector2( 0, 64 )
 
 [node name="GroundTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -16,13 +75,22 @@ cell_size = Vector2( 80, 80 )
 collision_layer = 8
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 131104, 1, 0, 131106, 1, 0, 131108, 1, 0, 262143, 0, 3, 196610, 0, 0, 196611, 0, 2, 196623, 0, 0, 196624, 0, 1, 196625, 0, 1, 196626, 0, 1, 196627, 0, 1, 196628, 0, 1, 196629, 0, 1, 196630, 0, 1, 196631, 0, 1, 196632, 0, 1, 196633, 0, 1, 196634, 0, 2, 196640, 1, 0, 196641, 1, 0, 196642, 1, 0, 196643, 1, 0, 196644, 1, 0, 327679, 0, 65539, 262146, 0, 65536, 262147, 0, 65538, 262159, 0, 65536, 262160, 0, 65537, 262161, 0, 65537, 262162, 0, 65537, 262163, 0, 65537, 262164, 0, 65537, 262165, 0, 65537, 262166, 0, 65537, 262167, 0, 65537, 262168, 0, 65537, 262169, 0, 65537, 262170, 0, 65538, 262176, 1, 0, 262177, 1, 0, 262178, 1, 0, 262179, 1, 0, 262180, 1, 0, 393215, 0, 65539, 327682, 0, 65536, 327683, 0, 65538, 327689, 0, 0, 327690, 0, 2, 327695, 0, 65536, 327696, 0, 65537, 327697, 0, 65537, 327698, 0, 65537, 327699, 0, 65537, 327700, 0, 65537, 327701, 0, 65537, 327702, 0, 65537, 327703, 0, 65537, 327704, 0, 65537, 327705, 0, 65537, 327706, 0, 131079, 327707, 0, 2, 327710, 1, 0, 327712, 1, 0, 327713, 1, 0, 327715, 1, 0, 327716, 1, 0, 458751, 0, 262146, 393216, 0, 1, 393217, 0, 1, 393218, 0, 131081, 393219, 0, 131079, 393220, 0, 1, 393221, 0, 1, 393222, 0, 1, 393223, 0, 1, 393224, 0, 1, 393225, 0, 131081, 393226, 0, 131079, 393227, 0, 1, 393228, 0, 1, 393229, 0, 1, 393230, 0, 1, 393231, 0, 131081, 393232, 0, 65537, 393233, 0, 65537, 393234, 0, 65537, 393235, 0, 65537, 393236, 0, 65537, 393237, 0, 65537, 393238, 0, 65537, 393239, 0, 65537, 393240, 0, 65537, 393241, 0, 65537, 393242, 0, 65537, 393243, 0, 131079, 393244, 0, 1, 393245, 0, 1, 393246, 0, 1, 393247, 0, 1, 393248, 0, 1, 393249, 0, 1, 393250, 0, 1, 393251, 0, 1, 393252, 0, 2, 524287, 0, 131072, 458752, 0, 131073, 458753, 0, 131073, 458754, 0, 131073, 458755, 0, 131073, 458756, 0, 131073, 458757, 0, 131073, 458758, 0, 131073, 458759, 0, 131073, 458760, 0, 131073, 458761, 0, 131073, 458762, 0, 131073, 458763, 0, 131073, 458764, 0, 131073, 458765, 0, 131073, 458766, 0, 131073, 458767, 0, 131073, 458768, 0, 131073, 458769, 0, 131073, 458770, 0, 131073, 458771, 0, 131073, 458772, 0, 131073, 458773, 0, 131073, 458774, 0, 131073, 458775, 0, 131073, 458776, 0, 131073, 458777, 0, 131073, 458778, 0, 131073, 458779, 0, 131073, 458780, 0, 131073, 458781, 0, 131073, 458782, 0, 131073, 458783, 0, 131073, 458784, 0, 131073, 458785, 0, 131073, 458786, 0, 131073, 458787, 0, 131073, 458788, 0, 131074 )
 
-[node name="BounceEnemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 405, 154 )
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="BounceEnemy2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1063, 430 )
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Flagpole" parent="." instance=ExtResource( 4 )]
-position = Vector2( 2440, 400 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+anims/RESET = SubResource( 2 )
+anims/fade_in = SubResource( 1 )
+
+[connection signal="player_reached_end" from="Flagpole" to="." method="_on_Flagpole_player_reached_end"]
