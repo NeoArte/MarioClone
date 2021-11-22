@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="Title" type="Label"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -53.5
+margin_top = 59.0
+margin_right = 53.5
+margin_bottom = 73.0
+text = "Super Nario Bros"
+__meta__ = {
+"_edit_use_anchors_": false
+}
