@@ -1,11 +1,16 @@
 extends Actor
 
+signal player_died
+
 export var max_jump_force = 700
 var jump_force = max_jump_force
 
 export var stomp_impulse: float = 500
 
 onready var stomp_detector: Area2D = $StompDetector
+onready var anim_player: AnimationPlayer = $AnimationPlayer
+
+var dead: bool = false
 
 func _on_EnemyDetector_area_entered(area: Area2D) -> void:
 	if stomp_detector.global_position.y > area.global_position.y:
@@ -48,7 +53,8 @@ func calculate_move_velocity(
 	) -> Vector2:
 	
 	var velocity: = linear_velocity
-	
+	if dead:
+		return Vector2.ZERO
 	# X Movement		/\/\/\/\/\/\/\/\/\/\
 	
 	# Deacceleration when changing directions
@@ -91,3 +97,13 @@ func calculate_stomp_velocity(linear_velocity: Vector2, stomp_force: float) -> V
 	velocity.y = clamp(velocity.y, -max_jump_force, max_jump_force)
 	
 	return velocity
+
+
+func die() -> void:
+	dead = true
+	anim_player.play("death")
+	yield(anim_player, "animation_finished")
+	
+	PlayerData.lifes -= 1
+	queue_free()
+	emit_signal("player_died")

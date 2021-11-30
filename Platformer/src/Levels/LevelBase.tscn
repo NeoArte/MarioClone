@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://res/Resources/Tilemap/world1.tres" type="TileSet" id=1]
+[ext_resource path="res://src/Screens/GameOverScreen.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Actors/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Objects/Flagpole/Flagpole.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Levels/Scripts/LevelBase.gd" type="Script" id=5]
@@ -8,7 +9,7 @@
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/path = NodePath("Fade/ColorRect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -20,7 +21,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/path = NodePath("Fade/ColorRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -36,7 +37,7 @@ tracks/1/keys = {
 resource_name = "fade_in"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/path = NodePath("Fade/ColorRect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -48,7 +49,7 @@ tracks/0/keys = {
 "values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/path = NodePath("Fade/ColorRect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -66,9 +67,6 @@ script = ExtResource( 5 )
 [node name="Flagpole" parent="." instance=ExtResource( 4 )]
 position = Vector2( 752, 360 )
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, 64 )
-
 [node name="GroundTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 80, 80 )
@@ -76,9 +74,13 @@ collision_layer = 8
 collision_mask = 0
 format = 1
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 64 )
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="Fade" type="CanvasLayer" parent="."]
+layer = 105
+
+[node name="ColorRect" type="ColorRect" parent="Fade"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
@@ -88,9 +90,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GameOver" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="GameOverScreen" parent="GameOver" instance=ExtResource( 2 )]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "RESET"
 anims/RESET = SubResource( 2 )
 anims/fade_in = SubResource( 1 )
 
 [connection signal="player_reached_end" from="Flagpole" to="." method="_on_Flagpole_player_reached_end"]
+[connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]

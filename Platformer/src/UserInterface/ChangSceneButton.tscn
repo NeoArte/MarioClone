@@ -1,21 +1,21 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/UserInterface/Scripts/ExitButton.gd" type="Script" id=1]
+[ext_resource path="res://src/UserInterface/Scripts/ChangeSceneButton.gd" type="Script" id=1]
 [ext_resource path="res://res/Resources/Style/Default/hover_button_default.tres" type="StyleBox" id=2]
-[ext_resource path="res://res/Resources/Style/Default/disabled_button_default.tres" type="StyleBox" id=3]
+[ext_resource path="res://res/Resources/Style/Default/focus_button_default.tres" type="StyleBox" id=3]
+[ext_resource path="res://res/Resources/Style/Default/pressed_button_default.tres" type="StyleBox" id=4]
 [ext_resource path="res://res/Resources/Style/Default/button_default.tres" type="StyleBox" id=5]
-[ext_resource path="res://res/Resources/Style/Default/pressed_button_default.tres" type="StyleBox" id=6]
 
-[node name="QuitButton" type="Button"]
+[node name="StartButton" type="Button"]
 margin_right = 381.0
-margin_bottom = 57.0
+margin_bottom = 56.0
 size_flags_vertical = 3
 custom_styles/hover = ExtResource( 2 )
-custom_styles/pressed = ExtResource( 6 )
-custom_styles/focus = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 4 )
+custom_styles/focus = ExtResource( 3 )
 custom_styles/disabled = ExtResource( 3 )
 custom_styles/normal = ExtResource( 5 )
-text = "QUIT"
+text = "PLAY"
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

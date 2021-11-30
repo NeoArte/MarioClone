@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/UserInterface/Scripts/ReloadButton.gd" type="Script" id=1]
+[ext_resource path="res://res/Resources/Style/Default/button_default.tres" type="StyleBox" id=2]
+[ext_resource path="res://res/Resources/Style/Default/hover_button_default.tres" type="StyleBox" id=3]
+[ext_resource path="res://res/Resources/Style/Default/disabled_button_default.tres" type="StyleBox" id=4]
+[ext_resource path="res://res/Resources/Style/Default/pressed_button_default.tres" type="StyleBox" id=5]
+
+[node name="ReloadButton" type="Button"]
+margin_right = 381.0
+margin_bottom = 57.0
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 2 )
+text = "RELOAD"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="." to="." method="_on_ReloadButton_button_up"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://res/Sprites/Player/player.png" type="Texture" id=1]
 [ext_resource path="res://src/Actors/Player/Scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://res/Animations/Player/Player_death.tres" type="Animation" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 33 )
@@ -14,6 +15,45 @@ extents = Vector2( 22, 2 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 17, 34 )
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 10
@@ -61,6 +101,10 @@ shape = SubResource( 3 )
 position = Vector2( 0, -146 )
 current = true
 zoom = Vector2( 1.5, 1.5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 5 )
+anims/death = ExtResource( 3 )
 
 [connection signal="area_entered" from="StompDetector" to="." method="_on_EnemyDetector_area_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]
