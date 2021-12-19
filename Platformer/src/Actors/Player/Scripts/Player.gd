@@ -2,6 +2,8 @@ extends Actor
 
 signal player_died
 
+export var min_speed = 50
+
 export var max_jump_force = 700
 var jump_force = max_jump_force
 
@@ -33,6 +35,7 @@ func _physics_process(delta: float) -> void:
 	_velocity = calculate_move_velocity(_velocity, direction, acceleration, deacceleration, is_jump_interrupted, delta)
 	var snap: Vector2 = Vector2.DOWN if direction.y == 0 else Vector2.ZERO
 	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
+	print(_velocity.x)
 
 
 func get_direction() -> Vector2:
@@ -70,8 +73,16 @@ func calculate_move_velocity(
 		velocity.x = lerp(_velocity.x, 0, (deacceleration*delta)/1.5)
 	# Accelerating
 	elif direction.x != 0:
-		velocity.x += direction.x * acceleration * delta
-		velocity.x = clamp(velocity.x, -max_spd.x, max_spd.x)
+		var vel_dir := 1 if not abs(velocity.x) - velocity.x else -1
+		vel_dir = direction.x if not velocity.x else vel_dir
+#		print("Vx: %s\nMd: %s" % [velocity.x, min_speed*vel_dir])
+		var is_accel = vel_dir == direction.x or abs(velocity.x) < 20
+		if is_accel and abs(velocity.x) < min_speed:
+			velocity.x = min_speed * direction.x
+		else:
+			velocity.x += direction.x * acceleration * delta
+			velocity.x = clamp(velocity.x, -max_spd.x, max_spd.x)
+
 		
 	# Y Movement		/\/\/\/\/\/\/\/\/\/\
 	
