@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://res/Arts/titlescreen.png" type="Texture" id=1]
 [ext_resource path="res://src/UserInterface/QuitButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/UserInterface/Title.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/UserInterface/ChangSceneButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://res/Resources/Themes/main_screen.tres" type="Theme" id=5]
-[ext_resource path="res://res/Fonts/Resources/main_screen-title.tres" type="DynamicFont" id=6]
 
 [node name="MainScreen" type="Control"]
 anchor_right = 1.0
@@ -31,7 +30,6 @@ margin_left = -317.5
 margin_top = 68.0
 margin_right = 317.5
 margin_bottom = 132.0
-custom_fonts/font = ExtResource( 6 )
 text = "SUPER NARIO BROS"
 align = 1
 
@@ -51,6 +49,7 @@ __meta__ = {
 
 [node name="StartButton" parent="OptionsContainer" instance=ExtResource( 4 )]
 margin_bottom = 50.0
+next_scene_path = "res://src/Levels/Level_1.tscn"
 
 [node name="QuitButton" parent="OptionsContainer" instance=ExtResource( 2 )]
 margin_top = 75.0

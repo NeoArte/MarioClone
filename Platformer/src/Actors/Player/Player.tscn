@@ -11,7 +11,7 @@ extents = Vector2( 16, 33 )
 extents = Vector2( 29.5, 36.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 22, 2 )
+extents = Vector2( 22, 3.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 17, 34 )
@@ -72,8 +72,9 @@ shape = SubResource( 1 )
 
 [node name="LevelDetector" type="Area2D" parent="."]
 position = Vector2( 0, -34 )
-collision_mask = 0
-monitoring = false
+collision_layer = 0
+collision_mask = 16
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDetector"]
 position = Vector2( 0.5, -0.5 )
@@ -81,10 +82,11 @@ shape = SubResource( 4 )
 
 [node name="StompDetector" type="Area2D" parent="."]
 position = Vector2( 0, -2 )
-collision_mask = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
 modulate = Color( 0.243137, 1, 0, 1 )
+position = Vector2( 0, 1.5 )
 shape = SubResource( 2 )
 
 [node name="EnemyDetector" type="Area2D" parent="."]
@@ -95,10 +97,11 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 0, 2 )
 shape = SubResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -146 )
+position = Vector2( 0, 259 )
 current = true
 zoom = Vector2( 1.5, 1.5 )
 
@@ -106,5 +109,5 @@ zoom = Vector2( 1.5, 1.5 )
 anims/RESET = SubResource( 5 )
 anims/death = ExtResource( 3 )
 
-[connection signal="area_entered" from="StompDetector" to="." method="_on_EnemyDetector_area_entered"]
+[connection signal="area_entered" from="StompDetector" to="." method="_on_StompDetector_area_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]

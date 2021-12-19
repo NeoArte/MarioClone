@@ -66,6 +66,9 @@ script = ExtResource( 5 )
 
 [node name="Flagpole" parent="." instance=ExtResource( 4 )]
 position = Vector2( 752, 360 )
+collision_layer = 1
+collision_mask = 16
+monitorable = true
 
 [node name="GroundTiles" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )

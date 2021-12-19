@@ -8,7 +8,7 @@
 extents = Vector2( 18, 28 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 18, 10 )
+extents = Vector2( 23, 7.5 )
 
 [node name="BounceEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -26,6 +26,7 @@ collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompArea2D" index="0"]
 modulate = Color( 0.145098, 1, 0.0470588, 1 )
+position = Vector2( 0, -5.5 )
 shape = SubResource( 2 )
 
 [connection signal="area_entered" from="StompArea2D" to="." method="_on_StompArea2D_area_entered"]

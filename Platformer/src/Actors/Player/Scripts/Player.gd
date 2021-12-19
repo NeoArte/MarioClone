@@ -12,10 +12,13 @@ onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 var dead: bool = false
 
-func _on_EnemyDetector_area_entered(area: Area2D) -> void:
+func _on_StompDetector_area_entered(area: Area2D) -> void:
+	print("Player: ", stomp_detector.global_position.y, "\nEnemy: ", area.global_position)
 	if stomp_detector.global_position.y > area.global_position.y:
 		return
-	print("IMPULSE!")
+	print("IMPULSE DATA\n=======")
+	print("Enemy Y: ", area.global_position.y)
+	print("Player Y: ", stomp_detector.global_position.y)
 	_velocity = calculate_stomp_velocity(_velocity, stomp_impulse)
 
 
@@ -100,10 +103,12 @@ func calculate_stomp_velocity(linear_velocity: Vector2, stomp_force: float) -> V
 
 
 func die() -> void:
-	dead = true
-	anim_player.play("death")
+	if !dead:
+		dead = true
+		PlayerData.lifes -= 1
+		$CollisionShape2D.disabled = true
+		print($CollisionShape2D.disabled)
+		anim_player.play("death")
 	yield(anim_player, "animation_finished")
-	
-	PlayerData.lifes -= 1
 	queue_free()
 	emit_signal("player_died")
