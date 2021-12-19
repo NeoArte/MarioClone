@@ -106,7 +106,7 @@ func die() -> void:
 	if !dead:
 		dead = true
 		PlayerData.lifes -= 1
-		$CollisionShape2D.disabled = true
+		$CollisionShape2D.set_deferred("disabled", true)
 		print($CollisionShape2D.disabled)
 		anim_player.play("death")
 	yield(anim_player, "animation_finished")
