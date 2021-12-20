@@ -10,14 +10,20 @@ export var coyote_time := 0.1
 
 
 var direction: Vector2 = Vector2.ZERO
+
 var jump_force = max_jump_force
 var jump_pressed: bool = false
 var can_jump: bool = false
 var impulsed: bool = false
+
 var dead: bool = false
+
 
 onready var stomp_detector: Area2D = $StompDetector
 onready var anim_player: AnimationPlayer = $AnimationPlayer
+onready var pivot: Node2D = $Pivot
+onready var p_start_scale: Vector2 = pivot.scale
+
 
 
 func _on_StompDetector_area_entered(area: Area2D) -> void:
@@ -43,8 +49,6 @@ func _physics_process(delta: float) -> void:
 	if !is_on_floor():
 		activate_coyote_time()
 	
-	print(can_jump)
-	
 	var is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0 and !impulsed
 	direction = get_direction()
 	
@@ -53,7 +57,18 @@ func _physics_process(delta: float) -> void:
 	
 	var snap: Vector2 = Vector2.DOWN if direction.y == 0 else Vector2.ZERO
 	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
-#	print(_velocity.x)
+	
+	if not is_zero_approx(direction.x):
+		pivot.scale.x = sign(direction.x) * p_start_scale.x
+	if direction.x == 0:
+		print(anim_player.current_animation)
+		if anim_player.current_animation == "walking":
+			anim_player.stop(true)
+		anim_player.play("RESET")
+	elif not is_zero_approx(_velocity.x):
+		anim_player.play("walking")
+
+#	print(direction.x)
 
 func get_direction() -> Vector2:
 	var x_dir = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
