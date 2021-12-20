@@ -2,10 +2,17 @@ extends Actor
 
 signal player_died
 
+var direction: Vector2 = Vector2.ZERO
+
 export var min_speed = 50
 
 export var max_jump_force = 700
 var jump_force = max_jump_force
+
+export var jump_press_time := 0.5
+var jump_pressed: bool = false
+export var coyote_time := 0.1
+var can_jump: bool = false
 
 export var stomp_impulse: float = 500
 
@@ -30,21 +37,48 @@ func _on_EnemyDetector_body_entered(_body: Node) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
+	if is_on_floor():
+		can_jump = true
+	if !is_on_floor():
+		activate_coyote_time()
+	
+	print(can_jump)
+	
 	var is_jump_interrupted = Input.is_action_just_released("jump") and _velocity.y < 0.0
-	var direction = get_direction()
-	_velocity = calculate_move_velocity(_velocity, direction, acceleration, deacceleration, is_jump_interrupted, delta)
+	direction = get_direction()
+	
+	_velocity = calculate_move_velocity(_velocity, direction, acceleration, deacceleration, \
+	is_jump_interrupted, can_jump && jump_pressed, delta)
+	
 	var snap: Vector2 = Vector2.DOWN if direction.y == 0 else Vector2.ZERO
 	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
-	print(_velocity.x)
+#	print(_velocity.x)
 
+func activate_coyote_time() -> void:
+	yield(get_tree().create_timer(coyote_time), "timeout")
+	can_jump = false
+
+func remember_jump_time() -> void:
+	yield(get_tree().create_timer(0.1), "timeout")
+	jump_pressed = false
 
 func get_direction() -> Vector2:
 	var x_dir = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	
 	# For the jump to occur the player must be on the ground (is_on_floor), the
 	# jump key must just have been pressed and it cannot have been released.
-	var y_dir = -Input.get_action_strength("jump") if is_on_floor() and \
-	Input.is_action_just_pressed("jump") else 0.0
+#	var y_dir = -Input.get_action_strength("jump") if is_on_floor() and \
+#	Input.is_action_just_pressed("jump") else 0.0
+#	jump_pressed = Input.is_action_just_pressed("jump")
+	var y_dir = 0.0
+	var input_jump = Input.is_action_just_pressed("jump")
+	if can_jump:
+		if input_jump:
+			jump_pressed = true
+			remember_jump_time()
+		if jump_pressed:
+			y_dir = -1.0
 	
 	return Vector2(x_dir, y_dir)
 
@@ -55,6 +89,7 @@ func calculate_move_velocity(
 		acceleration: float,
 		deacceleration: float,
 		is_jump_interrupted: bool,
+		jump: bool,
 		delta: float
 	) -> Vector2:
 	
@@ -87,15 +122,9 @@ func calculate_move_velocity(
 	# Y Movement		/\/\/\/\/\/\/\/\/\/\
 	
 	## TODO: Better jump (at the moment this code just doesnt make difference)
-	if direction.y != 0:
-		velocity.y += direction.y * jump_force
-		velocity.y = clamp(velocity.y, -max_spd.y, max_spd.y)
-		jump_force /= 2
-	elif direction.y == 0:
-		jump_force = max_jump_force
-	if is_jump_interrupted:
-		velocity.y = 0.0
-		jump_force = max_jump_force
+	if direction.y != 0.0:
+		velocity.y -= max_jump_force
+		jump_pressed = false
 	return velocity
 
 
