@@ -14,6 +14,7 @@ var direction: Vector2 = Vector2.ZERO
 var jump_force = max_jump_force
 var jump_pressed: bool = false
 var can_jump: bool = false
+var jumped: bool = false
 var impulsed: bool = false
 
 var dead: bool = false
@@ -65,8 +66,11 @@ func _physics_process(delta: float) -> void:
 		if anim_player.current_animation == "walking":
 			anim_player.stop(true)
 		anim_player.play("RESET")
-	elif not is_zero_approx(_velocity.x):
-		anim_player.play("walking")
+	elif not is_on_floor():
+		anim_player.play("RESET")
+		jumped = false
+	elif is_on_floor() and not is_zero_approx(_velocity.x):
+		anim_player.play("walking", -1, 2.5)
 
 #	print(direction.x)
 
