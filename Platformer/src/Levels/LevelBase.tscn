@@ -80,6 +80,8 @@ format = 1
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 64 )
 
+[node name="Enemies" type="Node" parent="."]
+
 [node name="Fade" type="CanvasLayer" parent="."]
 layer = 105
 
