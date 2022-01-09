@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://res/Resources/Style/Default/pressed_button_default.tres" type="StyleBox" id=1]
+[ext_resource path="res://res/Resources/Style/Default/button_default.tres" type="StyleBox" id=2]
+[ext_resource path="res://res/Resources/Style/Default/hover_button_default.tres" type="StyleBox" id=3]
+[ext_resource path="res://res/Resources/Style/Default/focus_button_default.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/UserInterface/Scripts/ChangeSceneButton.gd" type="Script" id=5]
+
+[node name="ReplayButton" type="Button"]
+margin_right = 500.0
+margin_bottom = 51.0
+size_flags_vertical = 3
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 1 )
+custom_styles/focus = ExtResource( 4 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 2 )
+text = "REPLAY"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+next_scene_path = "res://src/Levels/Level_1.tscn"
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]

@@ -5,10 +5,13 @@ onready var go_anim_player: AnimationPlayer = $GameOver/GameOverScreen/Animation
 
 onready var game_over_layer: CanvasLayer = $GameOver
 
+onready var level_timer: Node = $LevelTimer
 
 func _on_Flagpole_player_reached_end(level_to_move) -> void:
 	anim_player.play("fade_in")
 	yield(anim_player, "animation_finished")
+	PlayerData.total_time += level_timer.get_time()
+	level_timer.reset_time()
 	get_tree().change_scene(level_to_move)
 
 
