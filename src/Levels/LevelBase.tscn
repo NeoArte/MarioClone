@@ -65,11 +65,25 @@ tracks/1/keys = {
 [node name="LevelBase" type="Node2D"]
 script = ExtResource( 5 )
 
-[node name="Flagpole" parent="." instance=ExtResource( 4 )]
-position = Vector2( 752, 360 )
+[node name="Background" type="ParallaxBackground" parent="."]
 
-[node name="SkyTiles" type="TileMap" parent="."]
+[node name="Sky" type="ParallaxLayer" parent="Background"]
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="SkyTiles" type="TileMap" parent="Background/Sky"]
 modulate = Color( 0.843137, 0.913725, 0.909804, 1 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 80, 80 )
+collision_layer = 8
+collision_mask = 0
+format = 1
+
+[node name="Clouds" type="ParallaxLayer" parent="Background"]
+z_index = 10
+motion_scale = Vector2( 0.8, 0.8 )
+
+[node name="CloudTiles" type="TileMap" parent="Background/Clouds"]
+modulate = Color( 100, 100, 100, 1 )
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 80, 80 )
 collision_layer = 8
@@ -90,6 +104,9 @@ cell_size = Vector2( 80, 80 )
 collision_layer = 8
 collision_mask = 0
 format = 1
+
+[node name="Flagpole" parent="." instance=ExtResource( 4 )]
+position = Vector2( 752, 360 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 64 )
