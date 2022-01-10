@@ -25,6 +25,7 @@ script = ExtResource( 2 )
 min_speed = 85
 stomp_impulse = 850.0
 jump_press_time = 0.9
+death_height = 720
 
 [node name="Pivot" type="Position2D" parent="."]
 position = Vector2( 0, -40 )

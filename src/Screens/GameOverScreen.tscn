@@ -447,10 +447,10 @@ __meta__ = {
 
 [node name="ReloadButton" parent="TitleAndOptions/VBoxContainer" instance=ExtResource( 5 )]
 margin_right = 400.0
-margin_bottom = 52.0
+margin_bottom = 50.0
 
 [node name="QuitButton" parent="TitleAndOptions/VBoxContainer" instance=ExtResource( 7 )]
-margin_top = 77.0
+margin_top = 75.0
 margin_right = 400.0
 margin_bottom = 137.0
 

@@ -7,6 +7,7 @@ export var max_jump_force = 700
 export var stomp_impulse: float = 500
 export var jump_press_time := 0.5
 export var coyote_time := 0.1
+export var death_height := 420
 
 
 var direction: Vector2 = Vector2.ZERO
@@ -44,6 +45,9 @@ func _on_EnemyDetector_body_entered(_body: Node) -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	if position.y > death_height:
+		die()
+	
 	if is_on_floor():
 		can_jump = true
 		impulsed = false
@@ -59,18 +63,19 @@ func _physics_process(delta: float) -> void:
 	var snap: Vector2 = Vector2.DOWN if direction.y == 0 else Vector2.ZERO
 	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true)
 	
-	if not is_zero_approx(direction.x):
-		pivot.scale.x = sign(direction.x) * p_start_scale.x
-	if direction.x == 0:
-		print(anim_player.current_animation)
-		if anim_player.current_animation == "walking":
-			anim_player.stop(true)
-		anim_player.play("RESET")
-	elif not is_on_floor():
-		anim_player.play("RESET")
-		jumped = false
-	elif is_on_floor() and not is_zero_approx(_velocity.x):
-		anim_player.play("walking", -1, 2.5)
+	if anim_player.current_animation != "death":
+		if not is_zero_approx(direction.x):
+			pivot.scale.x = sign(direction.x) * p_start_scale.x
+		if direction.x == 0:
+			print(anim_player.current_animation)
+			if anim_player.current_animation == "walking":
+				anim_player.stop(true)
+			anim_player.play("RESET")
+		elif not is_on_floor():
+			anim_player.play("RESET")
+			jumped = false
+		elif is_on_floor() and not is_zero_approx(_velocity.x):
+			anim_player.play("walking", -1, 2.5)
 
 #	print(direction.x)
 
